@@ -20,9 +20,9 @@ namespace MyApp
         }
         public void MainMenu()
         {
-            Console.WriteLine("1 to create person in table");
-            Console.WriteLine("2 to get uniq persons");
-            Console.WriteLine("3 to gegenerate 1m persons");
+            Console.WriteLine("1 to create  table");
+            Console.WriteLine("2 to create person in table");
+            Console.WriteLine("3 to get all uniq persons");
             Console.WriteLine("4 to create 1000000 notes and 100 Persons with lastname on F");
             Console.WriteLine("5 to find output time");
             int a = Convert.ToInt32(Console.ReadLine());
