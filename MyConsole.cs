@@ -1,10 +1,7 @@
-﻿using MyApp.Tasks;
-using System;
-using System.Collections.Generic;
+﻿using MyApp.Data;
+using MyApp.Tasks;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 
 namespace MyApp
@@ -26,26 +23,45 @@ namespace MyApp
             Console.WriteLine("1 to create person in table");
             Console.WriteLine("2 to get uniq persons");
             Console.WriteLine("3 to gegenerate 1m persons");
+            Console.WriteLine("4 to create 1000000 notes and 100 Persons with lastname on F");
+            Console.WriteLine("5 to find output time");
             int a = Convert.ToInt32(Console.ReadLine());
             if (a == 1)
             {
-                StartPage();
+                FirstTask();
+                MainMenu();
             }
             if (a == 2)
             {
-                GetAllUniqPeople();
+                PersonCreating();
             }
             if (a == 3)
             {
-                Generate();
+                _tasksManager.GetAllUniqPersons();
+                MainMenu();
             }
             if (a == 4)
             {
-               // _tasksManager.CreatingFPersons();
-                GetFPersons();
+
+                _tasksManager.CreatingMPersons();
+                _tasksManager.CreatingFPersons();
+                MainMenu();
+
+            }
+            if (a == 5)
+            {
+                _tasksManager.GetTimePersons();
+                MainMenu();
             }
         }
-        public void StartPage()
+        public void FirstTask()
+        {
+            using (var context = new PersonDb())
+            {
+                context.Database.EnsureCreated();
+            }
+        }
+        public void PersonCreating()
         {
             Console.WriteLine("Console app 1 started");
             Console.WriteLine("ФИО датаРождения пол");
@@ -57,17 +73,6 @@ namespace MyApp
             _tasksManager.CreatePerson(name, time, gender);
             MainMenu();
         }
-        public void GetAllUniqPeople()
-        {
-            _tasksManager.GetAllUniqPersons();
-        }
-        public void Generate()
-        {
-            _tasksManager.CreatingMPersons();
-        }
-        public void GetFPersons()
-        {
-            _tasksManager.GetTimePersons();
-        }
+        
     }
 }

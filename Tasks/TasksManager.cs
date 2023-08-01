@@ -1,16 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
-using MyApp.Data;
+﻿using MyApp.Data;
 using MyApp.Models;
 using Faker;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Diagnostics;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System.Data.Entity.Infrastructure;
-using System.Data.SqlClient;
+
 
 namespace MyApp.Tasks
 {
@@ -49,7 +41,6 @@ namespace MyApp.Tasks
             using (var context = new PersonDb())
             {
                 List<Person> persons = context.GetFullList();
-                //List<Person> uniqPersons = new List<Person>();
                 var uniqPersons = persons.GroupBy(p => new { p.FullName, p.DateOfBith }).Where(g => g.Count() == 1 || g.Count() == 2)
                     .Select(g => g.First());
                 var sortedPersons = from p in uniqPersons orderby p.FullName select p;
@@ -72,14 +63,17 @@ namespace MyApp.Tasks
                 {
 
                     var alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-                    var letterIndex = random.Next(0, 25);
+                    var letterIndex = random.Next(0, 26);
                     string name = alphabet[letterIndex].ToString();
+                    string lastname = Name.Last();
+                    string firstname = Name.First();
+                    lastname = name + lastname + firstname;
                     int birthDay = random.Next(1, 28);
                     int birthMonth = random.Next(1, 13);
                     int birthYear = random.Next(1920, 2024);
                     DateTime dateOfBirth = new DateTime(birthYear, birthMonth, birthDay);
                     string gender = random.NextDouble() < 0.5 ? "M" : "F";
-                    CreatePerson(name, dateOfBirth, gender);
+                    CreatePerson(lastname, dateOfBirth, gender);
                 }
             }
         }
